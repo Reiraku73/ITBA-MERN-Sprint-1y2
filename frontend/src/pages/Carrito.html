@@ -31,14 +31,6 @@
     </div>
 
     <nav class="header__nav" aria-label="Navegación principal">
-      <!--
-        Botón del menú mobile: el CSS ya lo esconde/muestra según el
-        ancho de pantalla (ver @media en style.css), pero para que
-        realmente abra y cierre la lista de links en mobile hace falta
-        JS que le sume/saque la clase "is-open" a #primary-menu al
-        hacer click. Por ahora, en mobile, el botón se ve pero no hace
-        nada — es lo que sigue en el próximo sprint.
-      -->
       <button
         class="nav__toggle"
         type="button"
@@ -56,13 +48,6 @@
         <li><a href="Contacto.html">Contacto</a></li>
       </ul>
     </nav>
-
-    <!--
-      Buscador: por ahora es un formulario HTML normal. Al enviarlo, el
-      navegador navega a productos.html?q=... por su cuenta (comportamiento
-      nativo del form, sin JS). El filtrado real de resultados según ese
-      "q" es lógica de JavaScript que todavía no escribimos.
-    -->
     <form class="header__search" role="search" action="Productos.html" method="get">
       <label for="search-input" class="visually-hidden">Buscar productos</label>
       <input
@@ -81,23 +66,12 @@
       <a href="Cuenta.html" class="header__icon-link" aria-label="Mi cuenta">
         <img src="../../public/icons/user.svg" alt="" width="24" height="24">
       </a>
-
-      <!--
-        El "0" de acá al lado está escrito fijo en el HTML. Cuando
-        agreguemos el carrito con JS, este número se va a actualizar
-        solo cada vez que se agregue un producto.
-      -->
       <a href="Carrito.html" class="header__icon-link header__cart" aria-label="Carrito de compras, 0 productos">
         <img src="../../public/icons/cart.svg" alt="" width="24" height="24">
         <span class="cart-count" aria-hidden="true">0</span>
       </a>
     </div>
   </header>
-
-  <!--
-    Región para anuncios accesibles (ej. "Producto agregado al carrito").
-    Queda vacía hasta que JS empiece a escribir mensajes acá adentro.
-  -->
   <div id="live-region" class="visually-hidden" role="status" aria-live="polite"></div>
 
   <main id="main-content">

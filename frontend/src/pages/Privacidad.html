@@ -31,14 +31,6 @@
     </div>
 
     <nav class="header__nav" aria-label="Navegación principal">
-      <!--
-        Botón del menú mobile: el CSS ya lo esconde/muestra según el
-        ancho de pantalla (ver @media en style.css), pero para que
-        realmente abra y cierre la lista de links en mobile hace falta
-        JS que le sume/saque la clase "is-open" a #primary-menu al
-        hacer click. Por ahora, en mobile, el botón se ve pero no hace
-        nada — es lo que sigue en el próximo sprint.
-      -->
       <button
         class="nav__toggle"
         type="button"
@@ -56,13 +48,6 @@
         <li><a href="Contacto.html">Contacto</a></li>
       </ul>
     </nav>
-
-    <!--
-      Buscador: por ahora es un formulario HTML normal. Al enviarlo, el
-      navegador navega a productos.html?q=... por su cuenta (comportamiento
-      nativo del form, sin JS). El filtrado real de resultados según ese
-      "q" es lógica de JavaScript que todavía no escribimos.
-    -->
     <form class="header__search" role="search" action="Productos.html" method="get">
       <label for="search-input" class="visually-hidden">Buscar productos</label>
       <input
@@ -81,31 +66,93 @@
       <a href="Cuenta.html" class="header__icon-link" aria-label="Mi cuenta">
         <img src="../../public/icons/user.svg" alt="" width="24" height="24">
       </a>
-
-      <!--
-        El "0" de acá al lado está escrito fijo en el HTML. Cuando
-        agreguemos el carrito con JS, este número se va a actualizar
-        solo cada vez que se agregue un producto.
-      -->
       <a href="Carrito.html" class="header__icon-link header__cart" aria-label="Carrito de compras, 0 productos">
         <img src="../../public/icons/cart.svg" alt="" width="24" height="24">
         <span class="cart-count" aria-hidden="true">0</span>
       </a>
     </div>
   </header>
-
-  <!--
-    Región para anuncios accesibles (ej. "Producto agregado al carrito").
-    Queda vacía hasta que JS empiece a escribir mensajes acá adentro.
-  -->
   <div id="live-region" class="visually-hidden" role="status" aria-live="polite"></div>
 
   <main id="main-content">
-    <section class="pagina-en-construccion">
-      <h1>Política de privacidad</h1>
-      <p>Estamos redactando esta sección junto con el equipo legal. Ante cualquier consulta puntual, escribinos por WhatsApp o email.</p>
-      <a href="Home.html" class="btn btn--primary">Volver al inicio</a>
+
+    <section class="legal-hero" aria-labelledby="privacidad-title">
+      <h1 id="privacidad-title">Política de privacidad</h1>
+      <p>Última actualización: septiembre de 2026</p>
     </section>
+
+    <section class="legal-content">
+
+      <article>
+        <h2>1. Datos que recopilamos</h2>
+        <p>
+          Cuando comprás en nuestro sitio o te suscribís al newsletter, recopilamos
+          datos como nombre, email, teléfono y dirección de envío. También podemos
+          recopilar información de navegación (páginas visitadas, dispositivo) con
+          fines estadísticos.
+        </p>
+      </article>
+
+      <article>
+        <h2>2. Uso de la información</h2>
+        <p>
+          Utilizamos tus datos exclusivamente para procesar pedidos, coordinar
+          envíos, responder consultas y, si lo aceptaste, enviarte novedades por
+          email. Nunca vendemos ni compartimos tu información con terceros con
+          fines comerciales ajenos a Hermanos Jota.
+        </p>
+      </article>
+
+      <article>
+        <h2>3. Cookies</h2>
+        <p>
+          Nuestro sitio utiliza cookies propias para recordar el contenido de tu
+          carrito de compras y mejorar tu experiencia de navegación. Podés
+          desactivarlas desde la configuración de tu navegador, aunque esto podría
+          afectar algunas funcionalidades.
+        </p>
+      </article>
+
+      <article>
+        <h2>4. Seguridad de los datos</h2>
+        <p>
+          Implementamos medidas técnicas y organizativas para proteger tu
+          información personal contra accesos no autorizados, pérdida o alteración.
+          Los datos de pago se procesan mediante pasarelas de pago certificadas.
+        </p>
+      </article>
+
+      <article>
+        <h2>5. Derechos del usuario</h2>
+        <p>
+          Podés solicitar en cualquier momento el acceso, la rectificación o la
+          eliminación de tus datos personales, escribiéndonos a
+          <a href="mailto:info@hermanosjota.com.ar">info@hermanosjota.com.ar</a>.
+        </p>
+      </article>
+
+      <article>
+        <h2>6. Cambios en esta política</h2>
+        <p>
+          Podemos actualizar esta política de privacidad periódicamente. Cualquier
+          cambio será publicado en esta misma página, con la fecha de última
+          actualización correspondiente.
+        </p>
+      </article>
+
+      <article>
+        <h2>7. Contacto</h2>
+        <p>
+          Ante cualquier consulta sobre el tratamiento de tus datos, podés
+          escribirnos a <a href="mailto:info@hermanosjota.com.ar">info@hermanosjota.com.ar</a>
+          o por WhatsApp al <a href="https://wa.me/5491145678900">+54 11 4567-8900</a>.
+        </p>
+      </article>
+
+    </section>
+
+    <a href="Home.html" class="btn btn--primary legal-content__volver">Volver al inicio</a>
+
   </main>
 
 <footer class="site-footer">
