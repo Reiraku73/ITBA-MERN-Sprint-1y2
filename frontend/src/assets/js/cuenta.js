@@ -1,0 +1,138 @@
+// ==========================================================================
+// Hermanos Jota — Mi cuenta (Cuenta.html)
+// Adaptado de Sprint 2 (rama login-register-micuenta). Sin backend: lee la
+// sesión y la lista de usuarios de localStorage. Si no hay sesión activa,
+// redirige a Login.html.
+// ==========================================================================
+
+import { esEmailValido, esTelefonoValido, esPasswordValida } from "./validaciones.js";
+
+function initCuenta() {
+  const contenedor = document.getElementById("cuenta-form");
+  if (!contenedor) return; // Esta página no es Cuenta.html.
+
+  const session = JSON.parse(localStorage.getItem("session"));
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const currentUser = session && users.find((user) => user.email === session.email);
+
+  if (!currentUser) {
+    window.location.href = "Login.html";
+    return;
+  }
+
+  const accountForm = contenedor;
+  const editButton = document.getElementById("editar-cuenta");
+  const logoutButton = document.getElementById("cerrar-sesion");
+  const cancelButton = document.getElementById("cancelar-edicion");
+  const actions = document.getElementById("cuenta-acciones");
+  const passwordSection = document.getElementById("cuenta-password");
+  const fields = {
+    name: document.getElementById("cuenta-nombre"),
+    lastname: document.getElementById("cuenta-apellido"),
+    email: document.getElementById("cuenta-email"),
+    phone: document.getElementById("cuenta-telefono"),
+    currentPassword: document.getElementById("cuenta-password-actual"),
+    newPassword: document.getElementById("cuenta-password-nueva"),
+    repeatedPassword: document.getElementById("cuenta-password-repetida"),
+  };
+
+  const showUserData = () => {
+    fields.name.value = currentUser.name || "";
+    fields.lastname.value = currentUser.lastname || "";
+    fields.email.value = currentUser.email || "";
+    fields.phone.value = currentUser.phone || "";
+    fields.currentPassword.value = "";
+    fields.newPassword.value = "";
+    fields.repeatedPassword.value = "";
+  };
+
+  const setEditing = (isEditing) => {
+    Object.values(fields).forEach((field) => {
+      field.readOnly = !isEditing;
+    });
+    fields.email.readOnly = true;
+    fields.email.disabled = true;
+    actions.hidden = !isEditing;
+    passwordSection.hidden = !isEditing;
+    editButton.hidden = isEditing;
+  };
+
+  editButton.addEventListener("click", () => setEditing(true));
+
+  logoutButton.addEventListener("click", () => {
+    localStorage.removeItem("session");
+    window.location.href = "Login.html";
+  });
+
+  cancelButton.addEventListener("click", () => {
+    showUserData();
+    setEditing(false);
+  });
+
+  accountForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    currentUser.name = fields.name.value.trim();
+    currentUser.lastname = fields.lastname.value.trim();
+    currentUser.phone = fields.phone.value.trim();
+
+    if (!esEmailValido(currentUser.email)) {
+      alert("El correo electrónico actual no es válido.");
+      return;
+    }
+
+    if (!esTelefonoValido(currentUser.phone)) {
+      alert("Ingresá un teléfono válido, con entre 7 y 15 dígitos.");
+      return;
+    }
+
+    const passwordValues = [
+      fields.currentPassword.value,
+      fields.newPassword.value,
+      fields.repeatedPassword.value,
+    ];
+    const changingPassword = passwordValues.some((value) => value !== "");
+
+    if (changingPassword && passwordValues.some((value) => value === "")) {
+      alert("Completá la contraseña actual y los dos campos de la nueva contraseña.");
+      return;
+    }
+
+    if (changingPassword && fields.currentPassword.value !== currentUser.password) {
+      alert("La contraseña actual es incorrecta.");
+      return;
+    }
+
+    if (changingPassword && fields.newPassword.value !== fields.repeatedPassword.value) {
+      alert("Las nuevas contraseñas no coinciden.");
+      return;
+    }
+
+    if (changingPassword && !esPasswordValida(fields.newPassword.value)) {
+      alert(
+        "La nueva contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo."
+      );
+      return;
+    }
+
+    if (changingPassword) {
+      currentUser.password = fields.newPassword.value;
+    }
+
+    const userIndex = users.findIndex((user) => user.email === currentUser.email);
+    users[userIndex] = currentUser;
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem(
+      "session",
+      JSON.stringify({ email: currentUser.email, name: currentUser.name })
+    );
+
+    showUserData();
+    setEditing(false);
+    alert("Los datos se actualizaron correctamente.");
+  });
+
+  showUserData();
+}
+
+document.addEventListener("DOMContentLoaded", initCuenta);
