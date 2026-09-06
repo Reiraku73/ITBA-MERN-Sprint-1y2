@@ -847,6 +847,12 @@ main > section {
   max-width: 40ch;
 }
 
+#producto-cargando{
+  text-align: center;
+  font-size: larger;
+  margin-bottom: 6px;
+}
+
 @media (max-width: 640px) {
   .carrito__item {
     grid-template-columns: auto 1fr;
