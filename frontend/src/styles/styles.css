@@ -347,152 +347,72 @@ main > section {
   filter: drop-shadow(0 30px 40px rgba(46, 32, 21, 0.35));
 }
 
-/* ---------- Hero Carousel ----------
-   Carrousel 100% CSS, sin JavaScript. Técnica: 5 radios ocultos
-   (#hero-radio-1..5, ver index.html) + `transform: translateX()` sobre
-   la pista, controlado por selectores `:checked ~`. Los puntos y las
-   flechas son <label for="hero-radio-N">: al clickear un label se
-   tilda el radio correspondiente y la pista se desliza — la transition
-   de acá abajo es la animación de "la vieja sale, entra la nueva".
-
-   Se usa esta técnica (radios) en vez de anclas <a href="#id"> porque
-   las anclas disparan el algoritmo nativo de "scroll to fragment" del
-   navegador, que SIEMPRE realinea verticalmente el destino contra el
-   borde superior de la ventana — sin importar si ya estaba a la vista
-   — corriendo la página. Con radios no se navega a ningún fragmento,
-   así que ese salto no puede pasar. */
-.hero-carousel {
+/* ---------- Carrousel del Hero ---------- */
+.hero__carousel {
   position: relative;
-  overflow: hidden;
-  /* `main > section` le da padding: var(--space-5) var(--space-2) por
-     defecto (4rem arriba/abajo, 1rem a los costados). Lo pisamos:
-     - arriba/abajo, porque son valores enormes (ver más abajo).
-     - a los costados, porque si queda padding horizontal, el recorte
-       (overflow: hidden) clipea más afuera que el borde real de cada
-       diapositiva, y eso deja asomar la puntita de la flecha de la
-       diapositiva vecina — el "botón duplicado" que se veía antes. */
-  padding-top: var(--space-2);
-  padding-bottom: var(--space-4);
-  padding-inline: 0;
-}
-.hero-carousel__track {
-  display: flex;
-  width: 500%; /* 5 diapositivas × 100% */
-  transition: transform 0.5s ease;
-}
-.hero-carousel__slide {
-  flex: 0 0 20%; /* 100% / 5 diapositivas */
-  position: relative;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-carousel__track { transition: none; }
-}
-
-#hero-radio-1:checked ~ .hero-carousel .hero-carousel__track { transform: translateX(0%); }
-#hero-radio-2:checked ~ .hero-carousel .hero-carousel__track { transform: translateX(-20%); }
-#hero-radio-3:checked ~ .hero-carousel .hero-carousel__track { transform: translateX(-40%); }
-#hero-radio-4:checked ~ .hero-carousel .hero-carousel__track { transform: translateX(-60%); }
-#hero-radio-5:checked ~ .hero-carousel .hero-carousel__track { transform: translateX(-80%); }
-
-/* Flechas: viven DENTRO de cada diapositiva (una por lado, por slide),
-   cada una apuntando (por `for`) al radio de la diapositiva siguiente/
-   anterior. Como solo la diapositiva activa ocupa pantalla (el resto
-   queda tapado por el overflow:hidden de .hero-carousel), siempre se
-   ve la flecha "correcta" en el mismo lugar. Centradas verticalmente,
-   pegadas a cada borde. Ocultas por defecto, aparecen con hover/focus. */
-.hero-carousel__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 252, 246, 0.35);
-  background: rgba(46, 32, 21, 0.45);
-  backdrop-filter: blur(2px);
-  opacity: 0;
-  cursor: pointer;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
-  z-index: 3;
 }
-.hero-carousel__arrow--prev { left: 0; }
-.hero-carousel__arrow--next { right: 0; }
 
-/* Ícono de flecha en CSS puro (sin glifos de texto, para que se vea
-   fino y prolijo en cualquier navegador/fuente). */
-.hero-carousel__arrow::before {
-  content: "";
-  width: 0.5rem;
-  height: 0.5rem;
-  border: solid var(--color-paper);
-  border-width: 0 2px 2px 0;
-}
-.hero-carousel__arrow--prev::before { transform: rotate(135deg); margin-left: 3px; }
-.hero-carousel__arrow--next::before { transform: rotate(-45deg); margin-right: 3px; }
-
-.hero-carousel:hover .hero-carousel__arrow,
-.hero-carousel:focus-within .hero-carousel__arrow,
-.hero-carousel__arrow:focus-visible {
-  opacity: 1;
-}
-.hero-carousel__arrow:hover,
-.hero-carousel__arrow:focus-visible {
+/* Placeholder mientras se resuelve obtenerProductos(): mismo color que
+   el fondo del hero (--color-siena), para que no haya flash blanco. */
+.hero__carousel-loading {
+  position: absolute;
+  inset: 0;
   background: var(--color-siena);
 }
 
-/* En mobile no hay hover real (touch): las flechas quedan siempre
-   visibles pero un poco más discretas, para no tapar la imagen. */
-@media (hover: none) {
-  .hero-carousel__arrow { opacity: 0.85; }
-}
-
-.hero-carousel__dots {
+.hero__carousel-slide {
   position: absolute;
-  left: 50%;
-  bottom: var(--space-1);
-  transform: translateX(-50%);
+  inset: 0;
   display: flex;
-  gap: 0.6rem;
-  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
 }
-.hero-carousel__dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 252, 246, 0.55);
-  border: 1px solid var(--color-paper);
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+.hero__carousel-slide--activa {
+  opacity: 1;
+  pointer-events: auto;
 }
-.hero-carousel__dot:hover {
-  background: var(--color-oro);
-  transform: scale(1.15);
+@media (prefers-reduced-motion: reduce) {
+  .hero__carousel-slide { transition: none; }
 }
 
-/* Punto activo: sincronizado con el radio tildado. Foco de teclado:
-   como los radios están visualmente ocultos (.visually-hidden, no
-   display:none — siguen en el tab order), cuando uno tiene foco por
-   teclado resaltamos el punto que le corresponde. */
-#hero-radio-1:checked ~ .hero-carousel .hero-carousel__dot:nth-child(1),
-#hero-radio-2:checked ~ .hero-carousel .hero-carousel__dot:nth-child(2),
-#hero-radio-3:checked ~ .hero-carousel .hero-carousel__dot:nth-child(3),
-#hero-radio-4:checked ~ .hero-carousel .hero-carousel__dot:nth-child(4),
-#hero-radio-5:checked ~ .hero-carousel .hero-carousel__dot:nth-child(5) {
-  background: var(--color-oro);
-  transform: scale(1.15);
+.hero__carousel-img {
+  max-width: 70%;
+  max-height: 70%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(46, 32, 21, 0.35));
 }
-#hero-radio-1:focus-visible ~ .hero-carousel .hero-carousel__dot:nth-child(1),
-#hero-radio-2:focus-visible ~ .hero-carousel .hero-carousel__dot:nth-child(2),
-#hero-radio-3:focus-visible ~ .hero-carousel .hero-carousel__dot:nth-child(3),
-#hero-radio-4:focus-visible ~ .hero-carousel .hero-carousel__dot:nth-child(4),
-#hero-radio-5:focus-visible ~ .hero-carousel .hero-carousel__dot:nth-child(5) {
-  outline: 2px solid var(--color-oro);
-  outline-offset: 2px;
+
+/* Flechas de navegación, centradas verticalmente a los costados */
+.hero__carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(255, 252, 246, 0.15);
+  color: var(--color-paper);
+  transition: background 0.15s ease;
 }
+.hero__carousel-arrow:hover { background: rgba(255, 252, 246, 0.3); }
+.hero__carousel-arrow--prev { left: var(--space-2); }
+.hero__carousel-arrow--next { right: var(--space-2); }
 
 /* ---------- Historia ---------- */
 .historia {
@@ -572,14 +492,23 @@ main > section {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
   gap: var(--space-3);
 }
-.materiales__grid > li { flex: 1 1 100%; }
+.materiales__grid > li { flex: 1 1 100%; display: flex; }
 .material-card {
+  width: 100%;
   background: var(--color-paper);
   border-radius: var(--radius);
   overflow: hidden;
   border-top: 3px solid var(--color-salvia);
+  display: flex;
+  flex-direction: column;
+}
+.material-card figure img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
 }
 .material-card h3 { padding: var(--space-2) var(--space-2) 0; font-size: 1.05rem; }
 .material-card p { padding: 0.35rem var(--space-2) var(--space-2); color: var(--color-ink-soft); font-size: 0.92rem; }
@@ -1314,8 +1243,8 @@ main > section {
   .hero__media { flex: 1; padding: var(--space-4); }
   .hero__media img { max-width: 85%; max-height: 85%; }
 
-  .hero-carousel__dots { bottom: var(--space-3); }
-  .hero-carousel__dot { width: 12px; height: 12px; }
+  .hero__carousel-img { max-width: 85%; max-height: 85%; }
+  .hero__carousel-arrow { width: 3.25rem; height: 3.25rem; }
 
   .historia { flex-direction: row; align-items: center; gap: var(--space-5); }
   .historia__content { flex: 1.1; }

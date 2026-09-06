@@ -1,13 +1,14 @@
 // ==========================================================================
-// Hermanos Jota — Productos destacados del Home (index.html)
-// Carga el catálogo de forma asíncrona (simulada) y renderiza 4 productos
-// elegidos como destacados, generando las tarjetas por DOM.
+// Hermanos Jota — Productos destacados del Home (Home.html)
+// Carga el catálogo de forma asíncrona desde productos.js y renderiza las
+// tarjetas de los productos destacados, generándolas dinámicamente por
+// DOM (mismos IDs que usa el carrusel del hero).
 // ==========================================================================
 
 import { obtenerProductos } from "../../data/productos.js";
 
-// IDs elegidos como destacados para el Home (ver data/productos.js).
-const IDS_DESTACADOS = ["4", "5", "10", "7"];
+// Mismos productos que estaban hardcodeados originalmente en Home.html.
+const IDS_DESTACADOS = ["1", "2", "3", "10"];
 
 function formatearPrecio(valor) {
   return "$" + valor.toLocaleString("es-AR");
@@ -21,9 +22,7 @@ function crearTarjeta(producto) {
         <figure class="producto-card__media">
           <img
             src="${producto.imagen}"
-            alt="${producto.nombre}, ${producto.categoria.toLowerCase()}"
-            width="600"
-            height="600"
+            alt="${producto.nombre}"
             loading="lazy"
           >
         </figure>
@@ -32,7 +31,7 @@ function crearTarjeta(producto) {
           <p class="producto-card__price">${formatearPrecio(producto.precio)}</p>
         </div>
       </a>
-      <button type="button" class="btn btn--secondary producto-card__cta" data-id="${producto.id}" aria-label="Agregar ${producto.nombre} al carrito">
+      <button type="button" class="btn btn--secondary producto-card__cta" data-id="${producto.id}">
         Agregar al carrito
       </button>
     </article>
