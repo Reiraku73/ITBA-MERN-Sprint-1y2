@@ -12,6 +12,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../styles/styles.css">
+    <style>
+    /* Oculta toda la página hasta que el guard de abajo confirme la sesión.
+      Así, aunque la redirección a Login.html tarde un instante en cargar
+      (por más rápido que sea, sigue siendo una navegación de red), nunca
+      se llega a ver el contenido de Cuenta.html. */
+    html { visibility: hidden; }
+  </style>
+  <script>
+    // Guard de acceso: sincrónico, corre antes de que se pinte el <body>.
+    function verificarSesion() {
+      try {
+        var session = JSON.parse(localStorage.getItem("session"));
+        var users = JSON.parse(localStorage.getItem("users")) || [];
+        var currentUser = session && users.find(function (u) { return u.email === session.email; });
+        if (!currentUser) {
+          window.location.replace("Login.html");
+          return; // el <html> queda oculto mientras carga Login.html
+        }
+        document.documentElement.style.visibility = "visible";
+      } catch (e) {
+        window.location.replace("Login.html");
+      }
+    }
+    verificarSesion();
+    // Si el navegador restaura la página desde el bfcache (botón atrás/adelante),
+    // vuelve a chequear en vez de mostrar un estado viejo.
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted) verificarSesion();
+    });
+  </script>
 </head>
 <body>
 
