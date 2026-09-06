@@ -37,7 +37,7 @@
 
   <header class="site-header">
     <div class="header__logo">
-      <a href="index.html" class="header__logo-link">
+      <a href="Home.html" class="header__logo-link">
         <img
           src="../../public/images/branding/isotipo.png"
           alt=""
@@ -49,15 +49,15 @@
     </div>
 
     <nav class="header__nav">
-      <ul class="nav__list">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="productos.html">Productos</a></li>
-        <li><a href="index.html#historia">Nosotros</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+      <ul id="primary-menu" class="nav__list">
+        <li><a href="Home.html">Inicio</a></li>
+        <li><a href="Productos.html">Productos</a></li>
+        <li><a href="Home.html#historia">Nosotros</a></li>
+        <li><a href="Contacto.html">Contacto</a></li>
       </ul>
     </nav>
 
-    <form class="header__search" role="search" action="productos.html" method="get">
+    <form class="header__search" role="search" action="Productos.html" method="get">
       <label for="search-input" class="visually-hidden">Buscar productos</label>
       <input
         type="search"
@@ -72,15 +72,15 @@
     </form>
 
     <div class="header__actions">
-      <a href="menu.html" class="nav__toggle">
-        <span>☰</span>
-      </a>
+      <button type="button" class="nav__toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Abrir menú de navegación">
+        <span aria-hidden="true">☰</span>
+      </button>
 
-      <a href="cuenta.html" class="header__icon-link">
+      <a href="Cuenta.html" class="header__icon-link">
         <img src="../../public/icons/user.svg" alt="" width="24" height="24">
       </a>
 
-      <a href="carrito.html" class="header__icon-link header__cart">
+      <a href="Carrito.html" class="header__icon-link header__cart">
         <img src="../../public/icons/cart.svg" alt="" width="24" height="24">
         <span class="cart-count">0</span>
       </a>
@@ -98,7 +98,7 @@
           Diseño artesanal en madera maciza, pensado para acompañar tu casa
           por generaciones.
         </p>
-        <a href="productos.html" class="btn btn--primary hero__cta">
+        <a href="Productos.html" class="btn btn--primary hero__cta">
           Ver colección
         </a>
       </div>
@@ -395,22 +395,22 @@
       <nav class="site-footer__nav">
         <h2>Navegación</h2>
         <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="productos.html">Productos</a></li>
-          <li><a href="index.html#historia">Nosotros</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="Home.html">Inicio</a></li>
+          <li><a href="Productos.html">Productos</a></li>
+          <li><a href="Home.html#historia">Nosotros</a></li>
+          <li><a href="Contacto.html">Contacto</a></li>
         </ul>
       </nav>
 
       <div class="site-footer__legal">
         <h2>Información legal</h2>
         <ul>
-          <li><a href="terminos.html">Términos y condiciones</a></li>
-          <li><a href="privacidad.html">Política de privacidad</a></li>
-          <li><a href="cambios-devoluciones.html">Cambios y devoluciones</a></li>
+          <li><a href="Terminos.html">Términos y condiciones</a></li>
+          <li><a href="Privacidad.html">Política de privacidad</a></li>
+          <li><a href="CambiosDevoluciones.html">Cambios y devoluciones</a></li>
         </ul>
       </div>
-
+      
       <div class="site-footer__contacto">
         <h2>Contacto</h2>
         <address>
@@ -451,5 +451,6 @@
   </footer>
   <script type="module" src="../assets/js/hero-carousel.js"></script>
   <script type="module" src="../assets/js/home-destacados.js"></script>
+  <script type="module" src="../assets/js/main.js"></script>
 </body>
 </html>
