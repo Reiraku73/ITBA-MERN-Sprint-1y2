@@ -47,24 +47,6 @@
     </div>
 
     <nav class="header__nav" aria-label="Navegación principal">
-      <!--
-        Botón del menú mobile: el CSS ya lo esconde/muestra según el
-        ancho de pantalla (ver @media en style.css), pero para que
-        realmente abra y cierre la lista de links en mobile hace falta
-        JS que le sume/saque la clase "is-open" a #primary-menu al
-        hacer click. Por ahora, en mobile, el botón se ve pero no hace
-        nada — es lo que sigue en el próximo sprint.
-      -->
-      <button
-        class="nav__toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="primary-menu"
-        aria-label="Abrir menú de navegación"
-      >
-        <span aria-hidden="true">☰</span>
-      </button>
-
       <ul id="primary-menu" class="nav__list">
         <li><a href="Home.html">Inicio</a></li>
         <li><a href="Productos.html">Productos</a></li>
@@ -94,15 +76,20 @@
     </form>
 
     <div class="header__actions">
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-menu"
+        aria-label="Abrir menú de navegación"
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+
       <a href="Cuenta.html" class="header__icon-link" aria-label="Mi cuenta">
         <img src="../../public/icons/user.svg" alt="" width="24" height="24">
       </a>
 
-      <!--
-        El "0" de acá al lado está escrito fijo en el HTML. Cuando
-        agreguemos el carrito con JS, este número se va a actualizar
-        solo cada vez que se agregue un producto.
-      -->
       <a href="Carrito.html" class="header__icon-link header__cart" aria-label="Carrito de compras, 0 productos">
         <img src="../../public/icons/cart.svg" alt="" width="24" height="24">
         <span class="cart-count" aria-hidden="true">0</span>

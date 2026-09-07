@@ -41,24 +41,6 @@
     </div>
 
     <nav class="header__nav" aria-label="Navegación principal">
-      <!--
-        Botón del menú mobile: el CSS ya lo esconde/muestra según el
-        ancho de pantalla (ver @media en style.css), pero para que
-        realmente abra y cierre la lista de links en mobile hace falta
-        JS que le sume/saque la clase "is-open" a #primary-menu al
-        hacer click. Por ahora, en mobile, el botón se ve pero no hace
-        nada — es lo que sigue en el próximo sprint.
-      -->
-      <button
-        class="nav__toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="primary-menu"
-        aria-label="Abrir menú de navegación"
-      >
-        <span aria-hidden="true">☰</span>
-      </button>
-
       <ul id="primary-menu" class="nav__list">
         <li><a href="Home.html">Inicio</a></li>
         <li><a href="Productos.html" aria-current="page">Productos</a></li>
@@ -88,15 +70,20 @@
     </form>
 
     <div class="header__actions">
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-menu"
+        aria-label="Abrir menú de navegación"
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+
       <a href="Cuenta.html" class="header__icon-link" aria-label="Mi cuenta">
         <img src="../../public/icons/user.svg" alt="" width="24" height="24">
       </a>
 
-      <!--
-        El "0" de acá al lado está escrito fijo en el HTML. Cuando
-        agreguemos el carrito con JS, este número se va a actualizar
-        solo cada vez que se agregue un producto.
-      -->
       <a href="Carrito.html" class="header__icon-link header__cart" aria-label="Carrito de compras, 0 productos">
         <img src="../../public/icons/cart.svg" alt="" width="24" height="24">
         <span class="cart-count" aria-hidden="true">0</span>
@@ -128,7 +115,7 @@
       <ul class="productos-listado__grid" id="productos-listado-grid">
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=1" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/aparador-uspallata.webp"
@@ -152,7 +139,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=2" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/biblioteca-recoleta.webp"
@@ -176,7 +163,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=3" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/butaca-mendoza.webp"
@@ -200,7 +187,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=4" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/sillon-copacabana.webp"
@@ -224,7 +211,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=5" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/mesa-de-centro-araucaria.webp"
@@ -248,7 +235,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=6" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/mesa-de-noche-aconcagua.webp"
@@ -272,7 +259,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=7" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/sofa-patagonia.webp"
@@ -296,7 +283,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=8" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/mesa-comedor-pampa.webp"
@@ -320,7 +307,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=9" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/sillas-cordoba.webp"
@@ -344,7 +331,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=10" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/escritorio-costa.webp"
@@ -368,7 +355,7 @@
 
         <li>
           <article class="producto-card">
-            <a href="Producto.html" class="producto-card__link">
+            <a href="Producto.html?id=11" class="producto-card__link">
               <figure class="producto-card__media">
                 <img
                   src="../../public/images/productos/silla-de-trabajo-belgrano.webp"
