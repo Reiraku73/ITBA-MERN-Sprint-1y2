@@ -393,6 +393,7 @@ hermanos-jota-arquitectura-nueva/
         │       ├── carrito.js
         │       ├── contacto.js
         │       ├── cuenta.js
+        │       ├── hero-carousel.js
         │       ├── home-destacados.js
         │       ├── login.js
         │       ├── main.js
