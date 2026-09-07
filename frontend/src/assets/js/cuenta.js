@@ -9,7 +9,35 @@ import { esEmailValido, esTelefonoValido, esPasswordValida } from "./validacione
 
 function initCuenta() {
   const contenedor = document.getElementById("cuenta-form");
-  if (!contenedor) return; // Esta página no es Cuenta.html.
+  if (!contenedor) return;
+
+  
+  function mostrarAlertaDOM(mensaje, esExito = false) {
+    let alertaPrevia = document.getElementById("alerta-dom-sistema");
+    if (alertaPrevia) alertaPrevia.remove();
+
+    const div = document.createElement("div");
+    div.id = "alerta-dom-sistema";
+    div.textContent = mensaje;
+    div.style.padding = "1rem";
+    div.style.marginBottom = "1.5rem";
+    div.style.borderRadius = "4px";
+    div.style.fontWeight = "bold";
+    div.style.textAlign = "center";
+    div.style.backgroundColor = esExito ? "#d4edda" : "#f8d7da";
+    div.style.color = esExito ? "#155724" : "#721c24";
+    div.style.border = `1px solid ${esExito ? "#c3e6cb" : "#f5c6cb"}`;
+
+    contenedor.insertBefore(div, contenedor.firstChild);
+    
+
+    if (esExito) {
+      setTimeout(() => {
+        const msg = document.getElementById("alerta-dom-sistema");
+        if (msg) msg.remove();
+      }, 3000);
+    }
+  }
 
   const session = JSON.parse(localStorage.getItem("session"));
   const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -55,6 +83,10 @@ function initCuenta() {
     actions.hidden = !isEditing;
     passwordSection.hidden = !isEditing;
     editButton.hidden = isEditing;
+    
+
+    const alerta = document.getElementById("alerta-dom-sistema");
+    if (!isEditing && alerta) alerta.remove();
   };
 
   editButton.addEventListener("click", () => setEditing(true));
@@ -77,12 +109,12 @@ function initCuenta() {
     currentUser.phone = fields.phone.value.trim();
 
     if (!esEmailValido(currentUser.email)) {
-      alert("El correo electrónico actual no es válido.");
+      mostrarAlertaDOM("El correo electrónico actual no es válido.", false);
       return;
     }
 
     if (!esTelefonoValido(currentUser.phone)) {
-      alert("Ingresá un teléfono válido, con entre 7 y 15 dígitos.");
+      mostrarAlertaDOM("Ingresá un teléfono válido, con entre 7 y 15 dígitos.", false);
       return;
     }
 
@@ -94,23 +126,24 @@ function initCuenta() {
     const changingPassword = passwordValues.some((value) => value !== "");
 
     if (changingPassword && passwordValues.some((value) => value === "")) {
-      alert("Completá la contraseña actual y los dos campos de la nueva contraseña.");
+      mostrarAlertaDOM("Completá la contraseña actual y los dos campos de la nueva contraseña.", false);
       return;
     }
 
     if (changingPassword && fields.currentPassword.value !== currentUser.password) {
-      alert("La contraseña actual es incorrecta.");
+      mostrarAlertaDOM("La contraseña actual es incorrecta.", false);
       return;
     }
 
     if (changingPassword && fields.newPassword.value !== fields.repeatedPassword.value) {
-      alert("Las nuevas contraseñas no coinciden.");
+      mostrarAlertaDOM("Las nuevas contraseñas no coinciden.", false);
       return;
     }
 
     if (changingPassword && !esPasswordValida(fields.newPassword.value)) {
-      alert(
-        "La nueva contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo."
+      mostrarAlertaDOM(
+        "La nueva contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.",
+        false
       );
       return;
     }
@@ -129,7 +162,7 @@ function initCuenta() {
 
     showUserData();
     setEditing(false);
-    alert("Los datos se actualizaron correctamente.");
+    mostrarAlertaDOM("Los datos se actualizaron correctamente.", true);
   });
 
   showUserData();

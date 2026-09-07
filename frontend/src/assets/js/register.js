@@ -10,6 +10,26 @@ function initRegister() {
   const registerForm = document.getElementById("register-form");
   if (!registerForm) return;
 
+
+  function mostrarAlertaDOM(mensaje, esExito = false) {
+    let alertaPrevia = document.getElementById("alerta-dom-sistema");
+    if (alertaPrevia) alertaPrevia.remove();
+
+    const div = document.createElement("div");
+    div.id = "alerta-dom-sistema";
+    div.textContent = mensaje;
+    div.style.padding = "1rem";
+    div.style.marginBottom = "1.5rem";
+    div.style.borderRadius = "4px";
+    div.style.fontWeight = "bold";
+    div.style.textAlign = "center";
+    div.style.backgroundColor = esExito ? "#d4edda" : "#f8d7da";
+    div.style.color = esExito ? "#155724" : "#721c24";
+    div.style.border = `1px solid ${esExito ? "#c3e6cb" : "#f5c6cb"}`;
+
+    registerForm.insertBefore(div, registerForm.firstChild);
+  }
+
   const registerFields = {
     email: document.getElementById("email"),
     phone: document.getElementById("phone"),
@@ -72,15 +92,22 @@ function initRegister() {
 
     const userExists = users.some((user) => (user.email || "").toLowerCase() === email);
     if (userExists) {
-      alert("El correo electrónico ya está registrado.");
+      mostrarAlertaDOM("El correo electrónico ya está registrado.", false);
       return;
     }
 
     users.push({ name, lastname, email, phone, password });
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert("Registro exitoso. Ahora podés iniciar sesión.");
-    window.location.href = "Login.html";
+    mostrarAlertaDOM("Registro exitoso. Ahora podés iniciar sesión.", true);
+    
+    const boton = registerForm.querySelector('button[type="submit"]');
+    boton.disabled = true;
+    boton.textContent = "Redirigiendo...";
+
+    setTimeout(() => {
+      window.location.href = "Login.html";
+    }, 1500);
   });
 }
 
