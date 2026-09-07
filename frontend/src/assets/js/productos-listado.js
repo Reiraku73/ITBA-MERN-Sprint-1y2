@@ -42,15 +42,20 @@ function crearTarjeta(producto) {
 }
 
 async function render() {
-  const grid = document.getElementById("productos-listado-grid");
+  // Buscamos por CLASE en lugar de ID
+  const grid = document.querySelector(".productos-listado__grid");
   if (!grid) return;
 
   try {
     const productos = await obtenerProductos();
-    grid.innerHTML = "";
+    grid.innerHTML = ""; 
+    
+    const fragmento = document.createDocumentFragment();
     productos.forEach((producto) => {
-      grid.appendChild(crearTarjeta(producto));
+      fragmento.appendChild(crearTarjeta(producto));
     });
+    grid.appendChild(fragmento);
+    
   } catch (error) {
     grid.innerHTML = `<li class="estado-error">No pudimos cargar el catálogo. Probá recargar la página.</li>`;
   }

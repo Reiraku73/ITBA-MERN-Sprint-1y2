@@ -31,6 +31,19 @@
     </div>
 
     <nav class="header__nav" aria-label="Navegación principal">
+<<<<<<< HEAD
+=======
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-menu"
+        aria-label="Abrir menú de navegación"
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+
+>>>>>>> 0f25413fb2862fdb1148d6933ac1d59175283fc6
       <ul id="primary-menu" class="nav__list">
         <li><a href="Home.html">Inicio</a></li>
         <li><a href="Productos.html">Productos</a></li>
@@ -38,13 +51,6 @@
         <li><a href="Contacto.html">Contacto</a></li>
       </ul>
     </nav>
-
-    <!--
-      Buscador: por ahora es un formulario HTML normal. Al enviarlo, el
-      navegador navega a productos.html?q=... por su cuenta (comportamiento
-      nativo del form, sin JS). El filtrado real de resultados según ese
-      "q" es lógica de JavaScript que todavía no escribimos.
-    -->
     <form class="header__search" role="search" action="Productos.html" method="get">
       <label for="search-input" class="visually-hidden">Buscar productos</label>
       <input
@@ -73,24 +79,19 @@
       <a href="Cuenta.html" class="header__icon-link" aria-label="Mi cuenta">
         <img src="../../public/icons/user.svg" alt="" width="24" height="24">
       </a>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f25413fb2862fdb1148d6933ac1d59175283fc6
       <a href="Carrito.html" class="header__icon-link header__cart" aria-label="Carrito de compras, 0 productos">
         <img src="../../public/icons/cart.svg" alt="" width="24" height="24">
         <span class="cart-count" aria-hidden="true">0</span>
       </a>
     </div>
   </header>
-
-  <!--
-    Región para anuncios accesibles (ej. "Producto agregado al carrito").
-    Queda vacía hasta que JS empiece a escribir mensajes acá adentro.
-  -->
   <div id="live-region" class="visually-hidden" role="status" aria-live="polite"></div>
 
   <main id="main-content">
-    <!--
-      Contenido legal real, adaptado de Sprint 2 (rama info-legal).
-    -->
     <section class="legal-hero" aria-labelledby="terminos-title">
       <h1 id="terminos-title">Términos y condiciones</h1>
       <p>Última actualización: septiembre de 2026</p>
